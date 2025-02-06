@@ -35,6 +35,19 @@ def dfs_rec(path, goal):
     return None
 
 
+def iddfs_rec(path, goal, maxdepth):
+    if path[-1] == goal:
+        return path
+    else:
+        # may need a copy or deep copy of path[-1]
+        for next_state in move(path[-1]):
+            next_path = path + [next_state]
+            solution = iddfs_rec(next_path, goal, maxdepth)
+            if solution != None:
+                return solution
+    return None
+
+
 def solve_puzzle(start_state, goal_state):
     moves = 0
     yields = 0
@@ -63,3 +76,4 @@ def testGame():
 
 
 solve_puzzle(0, 0)
+iddfs_rec([data.case1[0]], data.goal1, 4)
