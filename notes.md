@@ -19,3 +19,15 @@ method during the search for a solution.
 - Input state
 - perform all moves
 - repeat until goal or state = prev state
+    * remember previous move
+    * next state != state-1
+
+## Graph
+
+## State
+- parent : state
+- children : state[]
+
+### With algo
+- walk down children lists
+> SORTED

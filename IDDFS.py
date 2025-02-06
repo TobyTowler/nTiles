@@ -1,4 +1,4 @@
-import case
+import data
 
 
 def move_blank(i, j, n):
@@ -22,11 +22,7 @@ def move(state):
         grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
 
 
-state = case.case1[0]
-goal = case.goal1[0]
-
-
-def dfs_rec(path):
+def dfs_rec(path, goal):
     if path[-1] == goal:
         return path
     else:
@@ -39,15 +35,6 @@ def dfs_rec(path):
     return None
 
 
-# state_generator = move(state) # state_generator is a generator
-# print(next(state_generator)) # the next built in function gets the next valu
-# print(next(state_generator))
-# alternatively, we can use a for loop
-print(state)
-# for next_state in move(state):
-#     print(next_state)
-
-
 def solve_puzzle(start_state, goal_state):
     moves = 0
     yields = 0
@@ -58,16 +45,16 @@ def solve_puzzle(start_state, goal_state):
 
 
 def testGame():
-    for i in case.case1:
-        moves, yields, time, path = solve_puzzle(i, case.goal1)
+    for i in data.case1:
+        moves, yields, time, path = solve_puzzle(i, data.goal1)
         print(f"Goal1 case {i + 1}")
         print(f"Moves : {moves}")
         print(f"Yields : {yields}")
         print(f"Time : {time}")
         print(f"Path : {path}")
 
-    for i in case.case2:
-        moves, yields, time, path = solve_puzzle(i, case.goal2)
+    for i in data.case2:
+        moves, yields, time, path = solve_puzzle(i, data.goal2)
         print(f"Goal2 case {i + 1}")
         print(f"Moves : {moves}")
         print(f"Yields : {yields}")
