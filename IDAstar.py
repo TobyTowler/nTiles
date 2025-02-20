@@ -1,6 +1,6 @@
 import data
-import copy
 import time
+import copy
 
 
 def solve_puzzle(start_state, goal_state):
@@ -28,57 +28,55 @@ def solve_puzzle(start_state, goal_state):
             yield [i1, j1, grid]
             grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
 
-    def is_goal(state):
-        return state == goal_state
+    def hFunction(state):
+        grid = state[2]
+        goalGrid = goal_state[2]
+        moves = 0
+        for i, (row1, row2) in enumerate(zip(grid, goalGrid)):
+            for j, (val1, val2) in enumerate(zip(row1, row2)):
+                if val1 != val2:
+                    moves += 1
+        return moves
 
-    def iddfs_rec(path, depth, maxDepth):
+    def idAstar(path, depth, maxDepth):
+        """ """
         state = copy.deepcopy(path[-1])
         # print(state)
 
-        if is_goal(state):
+        h = hFunction(state)
+        # print(h)
+        if h == 0:
             return path
 
         if depth > maxDepth:
             return None
         else:
+            scores = []
             for next_state in move(state):
                 if next_state not in path:
-                    next_path = path + [next_state]
-                    solution = iddfs_rec(next_path, depth + 1, maxDepth)
-                    if solution is not None:
-                        return solution
+                    scores.append([next_state, hFunction(state)])
+            best = scores[0]
+            for i in scores:
+                if scores[i][1] < best:
+                    best = scores[i]
+
+        print(best)
+        next_path = path + [best]
+        solution = idAstar(next_path, depth + 1, maxDepth)
+        if solution is not None:
+            return solution
         return None
 
     solution = None
     computingTime = 0
     startTime = time.time()
     for i in range(0, 100):
-        solution = iddfs_rec([start_state], 0, i)
+        solution = idAstar([start_state], 0, i)
         if solution is not None:
             computingTime = time.time() - startTime
             break
 
-    print()
-
-    caseNumber = 0
-    if start_state in data.case1:
-        caseNumber = 1
-    elif start_state in data.case2:
-        caseNumber = 2
-    numberOfMoves = len(solution) - 1
-
-    print(f"CASE NUMBER: {caseNumber}")
-    print(f"NUMBER OF MOVES {numberOfMoves}")
-    print(f"NUMBER OF NODES OPENED {numberOfNodes}")
-    print(f"TIME TAKEN {computingTime}")
-    return numberOfMoves, numberOfNodes, computingTime, solution
+    return solution
 
 
-# for i in data.case1:
-#     print(solve_puzzle(i, data.goal1))
-#
-# for i in data.case2:
-# print(solve_puzzle(i, data.goal2))
-
-for i in data.case3:
-    print(solve_puzzle(i, data.goal3))
+solve_puzzle(data.case1[0], data.goal1)
