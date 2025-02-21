@@ -26,34 +26,33 @@ def solve_puzzle(start_state, goal_state):
             yield [i1, j1, grid]
             grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
 
-            """update for manhattan distance"""
+    def find_position(matrix, target):
+        for i, row in enumerate(matrix):
+            for j, element in enumerate(row):
+                if element == target:
+                    return (i, j)  # Return row and column index
+        return None
+
+    """
+    update for manhattan distance
+    findPosition for each target, add difference to distance
+    bombaclart
+    
+
+
+    """
 
     def hFunction(state):
         grid = state[2]
         goalGrid = goal_state[2]
-        # for i, (row1, row2) in enumerate(zip(grid, goalGrid)):
-        #     for j, (val1, val2) in enumerate(zip(row1, row2)):
-        #         if val1 != val2:
-        #             total = 0
-        #             total += abs(row1-row2)
-        #             total += abs()
-        #             val1
-        #
-        # for i in goal_state
         distance = 0
-        for num in grid:
-            pos1 = []
-            pos2 = []
-            for i, x in enumerate(grid):
-                for j, y in enumerate(x):
-                    if num == y:
-                        pos1.append([i, x.index(num)])
-            for i, x in enumerate(goalGrid):
-                for j, y in enumerate(x):
-                    if num == y:
-                        pos2.append([i, x.index(num)])
-            distance += abs(pos1[0] - pos2[0])
-            distance += abs(pos1[1] - pos2[1])
+
+        for i in grid:
+            for j in i:
+                x1, y1 = find_position(grid, j)
+                x2, y2 = find_position(goalGrid, j)
+                distance += abs(x1 - x2)
+                distance += abs(y1 - y2)
 
         return distance
 
