@@ -59,13 +59,11 @@ def solve_puzzle(start_state, goal_state):
             computingTime = time.time() - startTime
             break
 
-    print()
-
     caseNumber = 0
     if start_state in data.case1:
-        caseNumber = 1
+        caseNumber = 1 + (data.case1.index(start_state)) * 0.1
     elif start_state in data.case2:
-        caseNumber = 2
+        caseNumber = 2 + (data.case2.index(start_state)) * 0.1
     numberOfMoves = len(solution) - 1
 
     print(f"CASE NUMBER: {caseNumber}")

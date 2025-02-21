@@ -19,7 +19,6 @@ def solve_puzzle(start_state, goal_state):
     def move(state):
         [i, j, grid] = state
         n = len(grid)
-        # grid2 = copy.deepcopy(grid)
         for pos in move_blank(i, j, n):
             i1, j1 = pos
             grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
@@ -32,15 +31,6 @@ def solve_puzzle(start_state, goal_state):
                 if element == target:
                     return (i, j)  # Return row and column index
         return None
-
-    """
-    update for manhattan distance
-    findPosition for each target, add difference to distance
-    bombaclart
-    
-
-
-    """
 
     def hFunction(state):
         grid = state[2]
@@ -62,7 +52,7 @@ def solve_puzzle(start_state, goal_state):
         state = copy.deepcopy(path[-1])
 
         h = hFunction(state)
-        print(state)
+        # print(state)
 
         if h == 0:
             return path
@@ -89,9 +79,11 @@ def solve_puzzle(start_state, goal_state):
             break
 
     if start_state in data.case1:
-        caseNumber = 1
+        caseNumber = 1 + (data.case1.index(start_state)) * 0.1
     elif start_state in data.case2:
-        caseNumber = 2
+        caseNumber = 2 + (data.case2.index(start_state)) * 0.1
+    else:
+        caseNumber = -1
     numberOfMoves = len(solution) - 1
 
     print(f"CASE NUMBER: {caseNumber}")
@@ -101,4 +93,10 @@ def solve_puzzle(start_state, goal_state):
     return numberOfMoves, numberOfNodes, computingTime, solution
 
 
-solve_puzzle(data.case1[0], data.goal1)
+# for i in data.case1:
+#     print(solve_puzzle(i, data.goal1))
+#
+# for i in data.case2:
+#     print(solve_puzzle(i, data.goal2))
+
+print(solve_puzzle(data.case3[3], data.goal3))
