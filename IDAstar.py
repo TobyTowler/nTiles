@@ -84,6 +84,7 @@ def solve_puzzle(start_state, goal_state):
         caseNumber = 2 + (data.case2.index(start_state)) * 0.1
     else:
         caseNumber = -1
+    print(solution)
     numberOfMoves = len(solution) - 1
 
     print(f"CASE NUMBER: {caseNumber}")
