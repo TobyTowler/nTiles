@@ -93,10 +93,10 @@ def solve_puzzle(start_state, goal_state):
     return numberOfMoves, numberOfNodes, computingTime, solution
 
 
-# for i in data.case1:
-#     print(solve_puzzle(i, data.goal1))
+for i in data.case1:
+    print(solve_puzzle(i, data.goal1))
 #
 # for i in data.case2:
 #     print(solve_puzzle(i, data.goal2))
 
-print(solve_puzzle(data.case3[3], data.goal3))
+# print(solve_puzzle(data.case3[1], data.goal3))

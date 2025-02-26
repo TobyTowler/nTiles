@@ -19,7 +19,6 @@ def solve_puzzle(start_state, goal_state):
     def move(state):
         [i, j, grid] = state
         n = len(grid)
-        # grid2 = copy.deepcopy(grid)
         for pos in move_blank(i, j, n):
             i1, j1 = pos
             grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
@@ -76,8 +75,9 @@ def solve_puzzle(start_state, goal_state):
 for i in data.case1:
     print(solve_puzzle(i, data.goal1))
 
-for i in data.case2:
-    print(solve_puzzle(i, data.goal2))
+# for i in data.case2:
+# print(solve_puzzle(i, data.goal2))
+
 
 # for i in data.case3:
-#     print(solve_puzzle(i, data.goal3))
+# print(solve_puzzle(data.case3[3], data.goal3))
