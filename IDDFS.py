@@ -2,9 +2,35 @@ import data
 import copy
 import time
 
+"""
+finds the path from the start state to the goal state of n tile puzzle
+
+start_state : array of representing current grid poistion
+goal_state : array of representing desired grid poistion
+
+return : 
+numberOfMoves : number of moves taken to get to goal state
+numberOfNodes : number of nodes opened in total during search
+computingTime : real world time taken to solve problem
+solution : array of all states from start to goal
+"""
+
 
 def solve_puzzle(start_state, goal_state):
+    # Global variable
     numberOfNodes = 0
+
+    """
+    move the blank tile 
+
+    i : x coordinate of blank tile in grid
+    j : y coordinate of blank tile in grid
+    n : size of grid
+
+    yield : new position of blank tile
+
+    implementation of n assumes square grid
+    """
 
     def move_blank(i, j, n):
         if i + 1 < n:
@@ -15,6 +41,14 @@ def solve_puzzle(start_state, goal_state):
             yield (i, j + 1)
         if j - 1 >= 0:
             yield (i, j - 1)
+
+    """
+    produce next state of grid
+
+    state : current state of game
+
+    yield : new state after blank tile move
+    """
 
     def move(state):
         [i, j, grid] = state
@@ -27,6 +61,16 @@ def solve_puzzle(start_state, goal_state):
 
     def is_goal(state):
         return state == goal_state
+
+    """
+    iterative deepening depth first search recursive
+
+    path : array of states to get to current state
+    depth : current depth of iterative deepening
+    maxDepth : maximum depth of iterative deepening
+
+    return : array of states from beginning state to solution state
+    """
 
     def iddfs_rec(path, depth, maxDepth):
         nonlocal numberOfNodes
@@ -73,7 +117,8 @@ def solve_puzzle(start_state, goal_state):
 
 
 for i in data.case1:
-    print(solve_puzzle(i, data.goal1))
+    # print(solve_puzzle(i, data.goal1))
+    solve_puzzle(i, data.goal1)
 
 # for i in data.case2:
 # print(solve_puzzle(i, data.goal2))
