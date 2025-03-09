@@ -1,3 +1,48 @@
+"""
+OUTPUT
+
+CASE NUMBER: 1.0
+NUMBER OF MOVES 18
+NUMBER OF NODES OPENED 231338
+TIME TAKEN 0.8857522010803223
+CASE NUMBER: 1.1
+NUMBER OF MOVES 22
+NUMBER OF NODES OPENED 2266087
+TIME TAKEN 8.8618905544281
+CASE NUMBER: 1.2
+NUMBER OF MOVES 24
+NUMBER OF NODES OPENED 6469699
+TIME TAKEN 25.517180919647217
+CASE NUMBER: 1.3
+NUMBER OF MOVES 26
+NUMBER OF NODES OPENED 25176804
+TIME TAKEN 101.01597309112549
+CASE NUMBER: 1.4
+NUMBER OF MOVES 20
+NUMBER OF NODES OPENED 561376
+TIME TAKEN 2.154597043991089
+CASE NUMBER: 2.0
+NUMBER OF MOVES 20
+NUMBER OF NODES OPENED 691985
+TIME TAKEN 2.672685146331787
+CASE NUMBER: 2.1
+NUMBER OF MOVES 14
+NUMBER OF NODES OPENED 18556
+TIME TAKEN 0.06989645957946777
+CASE NUMBER: 2.2
+NUMBER OF MOVES 24
+NUMBER OF NODES OPENED 4737774
+TIME TAKEN 18.600117683410645
+CASE NUMBER: 2.3
+NUMBER OF MOVES 22
+NUMBER OF NODES OPENED 1558377
+TIME TAKEN 6.286353349685669
+CASE NUMBER: 2.4
+NUMBER OF MOVES 31
+NUMBER OF NODES OPENED 221466926
+TIME TAKEN 903.6199638843536
+"""
+
 import data
 import copy
 import time
@@ -17,6 +62,7 @@ def solve_puzzle(start_state, goal_state):
             yield (i, j - 1)
 
     def move(state):
+        nonlocal numberOfNodes
         [i, j, grid] = state
         n = len(grid)
         # grid2 = copy.deepcopy(grid)
@@ -24,13 +70,13 @@ def solve_puzzle(start_state, goal_state):
             i1, j1 = pos
             grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
             yield [i1, j1, grid]
+            numberOfNodes = numberOfNodes + 1  # increment after each yield
             grid[i][j], grid[i1][j1] = grid[i1][j1], grid[i][j]
 
     def is_goal(state):
         return state == goal_state
 
     def iddfs_rec(path, depth, maxDepth):
-        nonlocal numberOfNodes
         state = copy.deepcopy(path[-1])
         # state = path[-1]
         # print(state)
@@ -43,7 +89,6 @@ def solve_puzzle(start_state, goal_state):
         else:
             for next_state in move(state):
                 if next_state not in path:
-                    numberOfNodes = numberOfNodes + 1
                     next_path = path + [next_state]
                     solution = iddfs_rec(next_path, depth + 1, maxDepth)
                     if solution is not None:
@@ -74,10 +119,10 @@ def solve_puzzle(start_state, goal_state):
 
 
 for i in data.case1:
-    print(solve_puzzle(i, data.goal1))
+    solve_puzzle(i, data.goal1)
 
 for i in data.case2:
-    print(solve_puzzle(i, data.goal2))
+    solve_puzzle(i, data.goal2)
 
 # for i in data.case3:
 #     print(solve_puzzle(i, data.goal3))
