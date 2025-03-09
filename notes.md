@@ -22,3 +22,6 @@ method during the search for a solution.
     * remember previous move
     * next state != state-1
 
+
+# ToDo
+- comment outputs at top of file
